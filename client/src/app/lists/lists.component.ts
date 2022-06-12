@@ -20,16 +20,17 @@ export class ListsComponent implements OnInit {
   ngOnInit(): void {
     this.loadLikes();
   }
-
-  loadLikes(){
-    this.memberService.getLikes(this.predicate, this.pageNumber,this.pageSize).subscribe(response => {
+  
+  loadLikes() {
+    this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe(response => {
       this.members = response.result;
-      this.pagination = response.pagination
+      this.pagination = response.pagination;
     })
   }
 
-  pageChanged(event: any){
+  pageChanged(event: any) {
     this.pageNumber = event.page;
     this.loadLikes();
   }
+
 }

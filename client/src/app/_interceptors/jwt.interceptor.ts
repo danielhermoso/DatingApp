@@ -13,20 +13,20 @@ import { take } from 'rxjs/operators';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private accounService: AccountService) {}
+  constructor(private accountService: AccountService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let currenUser: User;
+    let currentUser: User;
 
-    this.accounService.currentUser$.pipe(take(1)).subscribe(user => currenUser = user);
-    if(currenUser){
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => currentUser = user);
+    if (currentUser) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${currenUser.token}`
+          Authorization: `Bearer ${currentUser.token}`
         }
       })
     }
-    
+
     return next.handle(request);
   }
 }
