@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
 using API.Helpers;
 using API.Interfaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
 namespace API.Services
@@ -9,7 +11,7 @@ namespace API.Services
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
-        public PhotoService(IOptions<CloudinarySettings>config)
+        public PhotoService(IOptions<CloudinarySettings> config)
         {
             var acc = new Account
             (
@@ -25,7 +27,7 @@ namespace API.Services
         {
             var uploadResult = new ImageUploadResult();
 
-            if(file.Length> 0)
+            if (file.Length > 0)
             {
                 using var stream = file.OpenReadStream();
                 var uploadParams = new ImageUploadParams
